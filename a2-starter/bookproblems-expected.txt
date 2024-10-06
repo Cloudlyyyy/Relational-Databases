@@ -1,0 +1,360 @@
+-- Expected output for queries run in order for A2 Part A
+-- (test your solutions in order after resetting the database
+-- with the setup-library.sql/setup-university.sql setup files to test for INSERT/DELETE behavior)
+
+-- [Problem 1a]
+-- Note: Order isn't specified, as long as you
+-- have the following in some order
++----------+
+| name     |
++----------+
+| Zhang    |
+| Shankar  |
+| Levy     |
+| Williams |
+| Snow     |
+| Bourikas |
++----------+
+
+-- [Problem 1b]
++------------+------------+
+| dept_name  | max_salary |
++------------+------------+
+| Biology    |   72000.00 |
+| Comp. Sci. |   92000.00 |
+| Elec. Eng. |   80000.00 |
+| Finance    |   90000.00 |
+| History    |   62000.00 |
+| Music      |   40000.00 |
+| Physics    |   95000.00 |
++------------+------------+
+
+-- [Problem 1c]
++---------------------+
+| smallest_max_salary |
++---------------------+
+|            40000.00 |
++---------------------+
+
+-- [Problem 1d]
+-- Note: You are expected to create a temporary
+-- table for the query described in the spec;
+-- It doesn't matter what the name is, as long as it's different than
+-- any other table/temporary table
++---------------------+
+| smallest_max_salary |
++---------------------+
+|            40000.00 |
++---------------------+
+
+-- [Problem 2a]
+-- First, show the expected courses before insert queries
+SELECT * FROM course;
++-----------+----------------------------+------------+---------+
+| course_id | title                      | dept_name  | credits |
++-----------+----------------------------+------------+---------+
+| BIO-101   | Intro. to Biology          | Biology    |       4 |
+| BIO-301   | Genetics                   | Biology    |       4 |
+| BIO-399   | Computational Biology      | Biology    |       3 |
+| CS-101    | Intro. to Computer Science | Comp. Sci. |       4 |
+| CS-190    | Game Design                | Comp. Sci. |       4 |
+| CS-315    | Robotics                   | Comp. Sci. |       3 |
+| CS-319    | Image Processing           | Comp. Sci. |       3 |
+| CS-347    | Database System Concepts   | Comp. Sci. |       3 |
+| EE-181    | Intro. to Digital Systems  | Elec. Eng. |       3 |
+| FIN-201   | Investment Banking         | Finance    |       3 |
+| HIS-351   | World History              | History    |       3 |
+| MU-199    | Music Video Production     | Music      |       3 |
+| PHY-101   | Physical Principles        | Physics    |       4 |
++-----------+----------------------------+------------+---------+
+13 rows in set (0.00 sec)
+
+-- INSERT query should have the following results:
+Query OK, 1 row affected (0.00 sec)
+
+After 2a INSERT command:
+SELECT * FROM course;
++-----------+----------------------------+------------+---------+
+| course_id | title                      | dept_name  | credits |
++-----------+----------------------------+------------+---------+
+| BIO-101   | Intro. to Biology          | Biology    |       4 |
+| BIO-301   | Genetics                   | Biology    |       4 |
+| BIO-399   | Computational Biology      | Biology    |       3 |
+| CS-001    | Weekly Seminar             | Comp. Sci. |       0 |
+| CS-101    | Intro. to Computer Science | Comp. Sci. |       4 |
+| CS-190    | Game Design                | Comp. Sci. |       4 |
+| CS-315    | Robotics                   | Comp. Sci. |       3 |
+| CS-319    | Image Processing           | Comp. Sci. |       3 |
+| CS-347    | Database System Concepts   | Comp. Sci. |       3 |
+| EE-181    | Intro. to Digital Systems  | Elec. Eng. |       3 |
+| FIN-201   | Investment Banking         | Finance    |       3 |
+| HIS-351   | World History              | History    |       3 |
+| MU-199    | Music Video Production     | Music      |       3 |
+| PHY-101   | Physical Principles        | Physics    |       4 |
++-----------+----------------------------+------------+---------+
+14 rows in set (0.00 sec)
+
+-- [Problem 2b]
+-- Show the expected sections before insert queries
+SELECT * FROM section;
++-----------+--------+----------+------+----------+-------------+--------------+
+| course_id | sec_id | semester | year | building | room_number | time_slot_id |
++-----------+--------+----------+------+----------+-------------+--------------+
+| BIO-101   | 1      | Summer   | 2009 | Painter  | 514         | B            |
+| BIO-301   | 1      | Summer   | 2010 | Painter  | 514         | A            |
+| CS-101    | 1      | Fall     | 2009 | Packard  | 101         | H            |
+| CS-101    | 1      | Spring   | 2010 | Packard  | 101         | F            |
+| CS-190    | 1      | Spring   | 2009 | Taylor   | 3128        | E            |
+| CS-190    | 2      | Spring   | 2009 | Taylor   | 3128        | A            |
+| CS-315    | 1      | Spring   | 2010 | Watson   | 120         | D            |
+| CS-319    | 1      | Spring   | 2010 | Watson   | 100         | B            |
+| CS-319    | 2      | Spring   | 2010 | Taylor   | 3128        | C            |
+| CS-347    | 1      | Fall     | 2009 | Taylor   | 3128        | A            |
+| EE-181    | 1      | Spring   | 2009 | Taylor   | 3128        | C            |
+| FIN-201   | 1      | Spring   | 2010 | Packard  | 101         | B            |
+| HIS-351   | 1      | Spring   | 2010 | Painter  | 514         | C            |
+| MU-199    | 1      | Spring   | 2010 | Packard  | 101         | D            |
+| PHY-101   | 1      | Fall     | 2009 | Watson   | 100         | A            |
++-----------+--------+----------+------+----------+-------------+--------------+
+15 rows in set (0.00 sec)
+
+-- INSERT query should have the following results:
+Query OK, 1 row affected (0.00 sec)
+
+After 2b INSERT command:
+SELECT * FROM section;
++-----------+--------+----------+------+----------+-------------+--------------+
+| course_id | sec_id | semester | year | building | room_number | time_slot_id |
++-----------+--------+----------+------+----------+-------------+--------------+
+| BIO-101   | 1      | Summer   | 2009 | Painter  | 514         | B            |
+| BIO-301   | 1      | Summer   | 2010 | Painter  | 514         | A            |
+| CS-001    | 1      | Winter   | 2023 | NULL     | NULL        | NULL         |
+| CS-101    | 1      | Fall     | 2009 | Packard  | 101         | H            |
+| CS-101    | 1      | Spring   | 2010 | Packard  | 101         | F            |
+| CS-190    | 1      | Spring   | 2009 | Taylor   | 3128        | E            |
+| CS-190    | 2      | Spring   | 2009 | Taylor   | 3128        | A            |
+| CS-315    | 1      | Spring   | 2010 | Watson   | 120         | D            |
+| CS-319    | 1      | Spring   | 2010 | Watson   | 100         | B            |
+| CS-319    | 2      | Spring   | 2010 | Taylor   | 3128        | C            |
+| CS-347    | 1      | Fall     | 2009 | Taylor   | 3128        | A            |
+| EE-181    | 1      | Spring   | 2009 | Taylor   | 3128        | C            |
+| FIN-201   | 1      | Spring   | 2010 | Packard  | 101         | B            |
+| HIS-351   | 1      | Spring   | 2010 | Painter  | 514         | C            |
+| MU-199    | 1      | Spring   | 2010 | Packard  | 101         | D            |
+| PHY-101   | 1      | Fall     | 2009 | Watson   | 100         | A            |
++-----------+--------+----------+------+----------+-------------+--------------+
+16 rows in set (0.01 sec)
+
+-- [Problem 2c]
+SELECT * FROM takes;
++-------+-----------+--------+----------+------+-------+
+| id    | course_id | sec_id | semester | year | grade |
++-------+-----------+--------+----------+------+-------+
+| 00128 | CS-101    | 1      | Fall     | 2009 | A     |
+| 00128 | CS-347    | 1      | Fall     | 2009 | A-    |
+| 12345 | CS-101    | 1      | Fall     | 2009 | C     |
+| 12345 | CS-190    | 2      | Spring   | 2009 | A     |
+| 12345 | CS-315    | 1      | Spring   | 2010 | A     |
+| 12345 | CS-347    | 1      | Fall     | 2009 | A     |
+| 19991 | HIS-351   | 1      | Spring   | 2010 | B     |
+| 23121 | FIN-201   | 1      | Spring   | 2010 | C+    |
+| 44553 | PHY-101   | 1      | Fall     | 2009 | B-    |
+| 45678 | CS-101    | 1      | Fall     | 2009 | F     |
+| 45678 | CS-101    | 1      | Spring   | 2010 | B+    |
+| 45678 | CS-319    | 1      | Spring   | 2010 | B     |
+| 54321 | CS-101    | 1      | Fall     | 2009 | A-    |
+| 54321 | CS-190    | 2      | Spring   | 2009 | B+    |
+| 55739 | MU-199    | 1      | Spring   | 2010 | A-    |
+| 76543 | CS-101    | 1      | Fall     | 2009 | A     |
+| 76543 | CS-319    | 2      | Spring   | 2010 | A     |
+| 76653 | EE-181    | 1      | Spring   | 2009 | C     |
+| 98765 | CS-101    | 1      | Fall     | 2009 | C-    |
+| 98765 | CS-315    | 1      | Spring   | 2010 | B     |
+| 98988 | BIO-101   | 1      | Summer   | 2009 | A     |
+| 98988 | BIO-301   | 1      | Summer   | 2010 | NULL  |
++-------+-----------+--------+----------+------+-------+
+22 rows in set (0.00 sec)
+
+-- INSERT query should have the following results:
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+After 2c INSERT command:
+SELECT * FROM takes;
++-------+-----------+--------+----------+------+-------+
+| id    | course_id | sec_id | semester | year | grade |
++-------+-----------+--------+----------+------+-------+
+| 00128 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 00128 | CS-101    | 1      | Fall     | 2009 | A     |
+| 00128 | CS-347    | 1      | Fall     | 2009 | A-    |
+| 12345 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 12345 | CS-101    | 1      | Fall     | 2009 | C     |
+| 12345 | CS-190    | 2      | Spring   | 2009 | A     |
+| 12345 | CS-315    | 1      | Spring   | 2010 | A     |
+| 12345 | CS-347    | 1      | Fall     | 2009 | A     |
+| 19991 | HIS-351   | 1      | Spring   | 2010 | B     |
+| 23121 | FIN-201   | 1      | Spring   | 2010 | C+    |
+| 44553 | PHY-101   | 1      | Fall     | 2009 | B-    |
+| 45678 | CS-101    | 1      | Fall     | 2009 | F     |
+| 45678 | CS-101    | 1      | Spring   | 2010 | B+    |
+| 45678 | CS-319    | 1      | Spring   | 2010 | B     |
+| 54321 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 54321 | CS-101    | 1      | Fall     | 2009 | A-    |
+| 54321 | CS-190    | 2      | Spring   | 2009 | B+    |
+| 55739 | MU-199    | 1      | Spring   | 2010 | A-    |
+| 76543 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 76543 | CS-101    | 1      | Fall     | 2009 | A     |
+| 76543 | CS-319    | 2      | Spring   | 2010 | A     |
+| 76653 | EE-181    | 1      | Spring   | 2009 | C     |
+| 98765 | CS-101    | 1      | Fall     | 2009 | C-    |
+| 98765 | CS-315    | 1      | Spring   | 2010 | B     |
+| 98988 | BIO-101   | 1      | Summer   | 2009 | A     |
+| 98988 | BIO-301   | 1      | Summer   | 2010 | NULL  |
++-------+-----------+--------+----------+------+-------+
+26 rows in set (0.00 sec)
+
+-- [Problem 2d]
+-- DELETE query should have the following output:
+Query OK, 1 row affected (0.00 sec)
+
+-- After 2d DELETE command:
+SELECT * FROM takes;
++-------+-----------+--------+----------+------+-------+
+| id    | course_id | sec_id | semester | year | grade |
++-------+-----------+--------+----------+------+-------+
+| 00128 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 00128 | CS-101    | 1      | Fall     | 2009 | A     |
+| 00128 | CS-347    | 1      | Fall     | 2009 | A-    |
+| 12345 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 12345 | CS-101    | 1      | Fall     | 2009 | C     |
+| 12345 | CS-190    | 2      | Spring   | 2009 | A     |
+| 12345 | CS-315    | 1      | Spring   | 2010 | A     |
+| 12345 | CS-347    | 1      | Fall     | 2009 | A     |
+| 19991 | HIS-351   | 1      | Spring   | 2010 | B     |
+| 23121 | FIN-201   | 1      | Spring   | 2010 | C+    |
+| 44553 | PHY-101   | 1      | Fall     | 2009 | B-    |
+| 45678 | CS-101    | 1      | Fall     | 2009 | F     |
+| 45678 | CS-101    | 1      | Spring   | 2010 | B+    |
+| 45678 | CS-319    | 1      | Spring   | 2010 | B     |
+| 54321 | CS-001    | 1      | Winter   | 2023 | NULL  |
+| 54321 | CS-101    | 1      | Fall     | 2009 | A-    |
+| 54321 | CS-190    | 2      | Spring   | 2009 | B+    |
+| 55739 | MU-199    | 1      | Spring   | 2010 | A-    |
+| 76543 | CS-101    | 1      | Fall     | 2009 | A     |
+| 76543 | CS-319    | 2      | Spring   | 2010 | A     |
+| 76653 | EE-181    | 1      | Spring   | 2009 | C     |
+| 98765 | CS-101    | 1      | Fall     | 2009 | C-    |
+| 98765 | CS-315    | 1      | Spring   | 2010 | B     |
+| 98988 | BIO-101   | 1      | Summer   | 2009 | A     |
+| 98988 | BIO-301   | 1      | Summer   | 2010 | NULL  |
++-------+-----------+--------+----------+------+-------+
+25 rows in set (0.00 sec)
+
+-- [Problem 2e]
+-- Note: Don't forget to also include the 2.e comment requirement!
+-- DELETE query should have the following output:
+Query OK, 1 row affected (0.00 sec)
+
+-- After 2e DELETE command:
+SELECT * FROM takes;
++-------+-----------+--------+----------+------+-------+
+| id    | course_id | sec_id | semester | year | grade |
++-------+-----------+--------+----------+------+-------+
+| 00128 | CS-101    | 1      | Fall     | 2009 | A     |
+| 00128 | CS-347    | 1      | Fall     | 2009 | A-    |
+| 12345 | CS-101    | 1      | Fall     | 2009 | C     |
+| 12345 | CS-190    | 2      | Spring   | 2009 | A     |
+| 12345 | CS-315    | 1      | Spring   | 2010 | A     |
+| 12345 | CS-347    | 1      | Fall     | 2009 | A     |
+| 19991 | HIS-351   | 1      | Spring   | 2010 | B     |
+| 23121 | FIN-201   | 1      | Spring   | 2010 | C+    |
+| 44553 | PHY-101   | 1      | Fall     | 2009 | B-    |
+| 45678 | CS-101    | 1      | Fall     | 2009 | F     |
+| 45678 | CS-101    | 1      | Spring   | 2010 | B+    |
+| 45678 | CS-319    | 1      | Spring   | 2010 | B     |
+| 54321 | CS-101    | 1      | Fall     | 2009 | A-    |
+| 54321 | CS-190    | 2      | Spring   | 2009 | B+    |
+| 55739 | MU-199    | 1      | Spring   | 2010 | A-    |
+| 76543 | CS-101    | 1      | Fall     | 2009 | A     |
+| 76543 | CS-319    | 2      | Spring   | 2010 | A     |
+| 76653 | EE-181    | 1      | Spring   | 2009 | C     |
+| 98765 | CS-101    | 1      | Fall     | 2009 | C-    |
+| 98765 | CS-315    | 1      | Spring   | 2010 | B     |
+| 98988 | BIO-101   | 1      | Summer   | 2009 | A     |
+| 98988 | BIO-301   | 1      | Summer   | 2010 | NULL  |
++-------+-----------+--------+----------+------+-------+
+22 rows in set (0.00 sec)
+
+-- [Problem 2f]
+-- DELETE query should have the following output:
+Query OK, 2 rows affected (0.00 sec)
+
+-- After 2f DELETE command:
+SELECT * FROM takes;
++-------+-----------+--------+----------+------+-------+
+| id    | course_id | sec_id | semester | year | grade |
++-------+-----------+--------+----------+------+-------+
+| 00128 | CS-101    | 1      | Fall     | 2009 | A     |
+| 12345 | CS-101    | 1      | Fall     | 2009 | C     |
+| 12345 | CS-190    | 2      | Spring   | 2009 | A     |
+| 12345 | CS-315    | 1      | Spring   | 2010 | A     |
+| 19991 | HIS-351   | 1      | Spring   | 2010 | B     |
+| 23121 | FIN-201   | 1      | Spring   | 2010 | C+    |
+| 44553 | PHY-101   | 1      | Fall     | 2009 | B-    |
+| 45678 | CS-101    | 1      | Fall     | 2009 | F     |
+| 45678 | CS-101    | 1      | Spring   | 2010 | B+    |
+| 45678 | CS-319    | 1      | Spring   | 2010 | B     |
+| 54321 | CS-101    | 1      | Fall     | 2009 | A-    |
+| 54321 | CS-190    | 2      | Spring   | 2009 | B+    |
+| 55739 | MU-199    | 1      | Spring   | 2010 | A-    |
+| 76543 | CS-101    | 1      | Fall     | 2009 | A     |
+| 76543 | CS-319    | 2      | Spring   | 2010 | A     |
+| 76653 | EE-181    | 1      | Spring   | 2009 | C     |
+| 98765 | CS-101    | 1      | Fall     | 2009 | C-    |
+| 98765 | CS-315    | 1      | Spring   | 2010 | B     |
+| 98988 | BIO-101   | 1      | Summer   | 2009 | A     |
+| 98988 | BIO-301   | 1      | Summer   | 2010 | NULL  |
++-------+-----------+--------+----------+------+-------+
+20 rows in set (0.01 sec)
+
+-- [Problem 3a]
++--------+
+| name   |
++--------+
+| Angela |
+| Audrey |
+| Bob    |
+| David  |
+| Max    |
++--------+
+
+-- [Problem 3b]
++--------+
+| name   |
++--------+
+| Audrey |
+| Max    |
++--------+
+
+-- [Problem 3c]
++---------------+--------+
+| publisher     | name   |
++---------------+--------+
+| McGraw-Hill   | Audrey |
+| McGraw-Hill   | Max    |
+| Prentice Hall | Mike   |
++---------------+--------+
+
+-- [Problem 3d]
++---------------+
+| avg_num_books |
++---------------+
+|        3.9000 |
++---------------+
+
+-- [Problem 3e]
++---------------+
+| avg_num_books |
++---------------+
+|        3.9000 |
++---------------+

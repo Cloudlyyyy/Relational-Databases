@@ -1,0 +1,311 @@
+-- Expected output for queries run in order for A2 Part C
+-- (test your solutions in order after resetting the database
+-- with the setup-banking.sql setup file to test for UPDATE behavior)
+
+-- [Problem 0a]
+-- [Problem 0b]
+-- ^ Don't forget these!
+
+-- [Problem 1a]
+-- Note: Order isn't specified, as long as you
+-- have the following in some order
++-------------+---------+
+| loan_number | amount  |
++-------------+---------+
+| L-378       | 1800.00 |
+| L-556       | 1900.00 |
+| L-624       | 1000.00 |
++-------------+---------+
+
+-- [Problem 1b]
++-------------+----------+
+| loan_number | amount   |
++-------------+----------+
+| L-112       |   400.00 |
+| L-168       | 53000.00 |
+| L-803       |  2500.00 |
++-------------+----------+
+
+-- [Problem 1c]
++-------------+
+| branch_city |
++-------------+
+| Stamford    |
++-------------+
+
+-- [Problem 1d]
++---------------+----------------+-------------+----------+
+| customer_name | account_number | branch_name | balance  |
++---------------+----------------+-------------+----------+
+| Jackson       | A-106          | North Town  |  2500.00 |
+| Jackson       | A-261          | Brighton    |  3700.00 |
+| Jackson       | A-577          | Bretton     | 91000.00 |
+| Jackson       | A-903          | Rock Ridge  |   910.00 |
+| Johnson       | A-106          | North Town  |  2500.00 |
+| Johnson       | A-233          | Perryridge  |   520.00 |
+| Johnson       | A-310          | Brighton    | 24000.00 |
+| Johnson       | A-468          | Stonewell   | 43000.00 |
+| Johnson       | A-931          | Downtown    |   200.00 |
+| Jones         | A-568          | North Town  |   380.00 |
+| Jones         | A-587          | Stonewell   | 66000.00 |
+| Jones         | A-595          | Marks       |   620.00 |
++---------------+----------------+-------------+----------+
+
+-- [Problem 1e]
++---------------+
+| customer_name |
++---------------+
+| Curry         | 
+| Davis         | 
+| Hall          | 
+| King          | 
+| Moore         | 
+| Turner        | 
+| Walker        | 
+| White         | 
++---------------+
+
+-- [Problem 2a]
++---------------+
+| customer_city |
++---------------+
+| Allentown     | 
+| Concord       | 
+| Hampton       | 
+| Harrison      | 
+| Lakewood      | 
+| Pittsfield    | 
+| Princeton     | 
+| Springfield   | 
++---------------+
+
+-- [Problem 2b]
++---------------+
+| customer_name |
++---------------+
+| Young         |
++---------------+
+
+-- [Problem 2c]
+-- First, show the expected courses before update queries
+SELECT * FROM account;
++----------------+-------------+----------+
+| account_number | branch_name | balance  |
++----------------+-------------+----------+
+| A-106          | North Town  |  2500.00 |
+| A-123          | Bretton     |   410.00 |
+| A-131          | Round Hill  | 34000.00 |
+| A-149          | Pownal      | 64000.00 |
+| A-151          | Greenfield  | 92000.00 |
+| A-154          | Brighton    |  1700.00 |
+| A-181          | Belldale    | 67000.00 |
+| A-185          | Perryridge  | 82000.00 |
+| A-210          | Belldale    |  9000.00 |
+| A-216          | Deer Park   |   640.00 |
+| A-233          | Perryridge  |   520.00 |
+| A-240          | Stonewell   | 28000.00 |
+| A-261          | Brighton    |  3700.00 |
+| A-274          | Pownal      |   470.00 |
+| A-276          | Greenfield  |   190.00 |
+| A-297          | Rock Ridge  |  9500.00 |
+| A-306          | Marks       | 69000.00 |
+| A-310          | Brighton    | 24000.00 |
+| A-313          | Rock Ridge  |  7800.00 |
+| A-314          | Redwood     |   340.00 |
+| A-335          | Belldale    |    60.00 |
+| A-340          | Central     |   300.00 |
+| A-369          | Perryridge  |  3800.00 |
+| A-375          | Perryridge  |   870.00 |
+| A-446          | Bretton     | 27000.00 |
+| A-460          | Redwood     |   560.00 |
+| A-468          | Stonewell   | 43000.00 |
+| A-470          | Marks       |   870.00 |
+| A-485          | Central     |  2000.00 |
+| A-506          | Greenfield  | 88000.00 |
+| A-559          | Marks       |  1100.00 |
+| A-568          | North Town  |   380.00 |
+| A-577          | Bretton     | 91000.00 |
+| A-587          | Stonewell   | 66000.00 |
+| A-591          | Greenfield  | 90000.00 |
+| A-595          | Marks       |   620.00 |
+| A-598          | Mianus      |   300.00 |
+| A-624          | Marks       | 31000.00 |
+| A-638          | Rock Ridge  |    50.00 |
+| A-656          | Brighton    |  5800.00 |
+| A-664          | Redwood     |   790.00 |
+| A-666          | Stonewell   |   580.00 |
+| A-671          | Pownal      |    10.00 |
+| A-730          | Pownal      | 91000.00 |
+| A-739          | Redwood     |  1000.00 |
+| A-751          | Marks       |  2800.00 |
+| A-752          | Deer Park   |  5900.00 |
+| A-758          | Bretton     | 59000.00 |
+| A-777          | Pownal      |   380.00 |
+| A-790          | North Town  | 37000.00 |
+| A-795          | Rock Ridge  | 50000.00 |
+| A-816          | North Town  |   420.00 |
+| A-840          | Deer Park   | 19000.00 |
+| A-855          | Mianus      |    60.00 |
+| A-866          | Stonewell   | 54000.00 |
+| A-890          | Central     |   340.00 |
+| A-903          | Rock Ridge  |   910.00 |
+| A-917          | Redwood     |  8200.00 |
+| A-931          | Downtown    |   200.00 |
+| A-959          | Mianus      | 74000.00 |
++----------------+-------------+----------+
+60 rows in set (0.00 sec)
+
+-- 2c is an update query, and should update existing records 
+-- for accounts associated with branches in 'Horseneck'
+-- UPDATE query should have the following results:
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+After 2c UPDATE command:
++----------------+-------------+----------+
+| account_number | branch_name | balance  |
++----------------+-------------+----------+
+| A-106          | North Town  |  2500.00 |
+| A-123          | Bretton     |   410.00 |
+| A-131          | Round Hill  | 34075.00 |
+| A-149          | Pownal      | 64000.00 |
+| A-151          | Greenfield  | 92000.00 |
+| A-154          | Brighton    |  1700.00 |
+| A-181          | Belldale    | 67000.00 |
+| A-185          | Perryridge  | 82075.00 |
+| A-210          | Belldale    |  9000.00 |
+| A-216          | Deer Park   |   640.00 |
+| A-233          | Perryridge  |   595.00 |
+| A-240          | Stonewell   | 28000.00 |
+| A-261          | Brighton    |  3700.00 |
+| A-274          | Pownal      |   470.00 |
+| A-276          | Greenfield  |   190.00 |
+| A-297          | Rock Ridge  |  9500.00 |
+| A-306          | Marks       | 69000.00 |
+| A-310          | Brighton    | 24000.00 |
+| A-313          | Rock Ridge  |  7800.00 |
+| A-314          | Redwood     |   340.00 |
+| A-335          | Belldale    |    60.00 |
+| A-340          | Central     |   300.00 |
+| A-369          | Perryridge  |  3875.00 |
+| A-375          | Perryridge  |   945.00 |
+| A-446          | Bretton     | 27000.00 |
+| A-460          | Redwood     |   560.00 |
+| A-468          | Stonewell   | 43000.00 |
+| A-470          | Marks       |   870.00 |
+| A-485          | Central     |  2000.00 |
+| A-506          | Greenfield  | 88000.00 |
+| A-559          | Marks       |  1100.00 |
+| A-568          | North Town  |   380.00 |
+| A-577          | Bretton     | 91000.00 |
+| A-587          | Stonewell   | 66000.00 |
+| A-591          | Greenfield  | 90000.00 |
+| A-595          | Marks       |   620.00 |
+| A-598          | Mianus      |   375.00 |
+| A-624          | Marks       | 31000.00 |
+| A-638          | Rock Ridge  |    50.00 |
+| A-656          | Brighton    |  5800.00 |
+| A-664          | Redwood     |   790.00 |
+| A-666          | Stonewell   |   580.00 |
+| A-671          | Pownal      |    10.00 |
+| A-730          | Pownal      | 91000.00 |
+| A-739          | Redwood     |  1000.00 |
+| A-751          | Marks       |  2800.00 |
+| A-752          | Deer Park   |  5900.00 |
+| A-758          | Bretton     | 59000.00 |
+| A-777          | Pownal      |   380.00 |
+| A-790          | North Town  | 37000.00 |
+| A-795          | Rock Ridge  | 50000.00 |
+| A-816          | North Town  |   420.00 |
+| A-840          | Deer Park   | 19000.00 |
+| A-855          | Mianus      |   135.00 |
+| A-866          | Stonewell   | 54000.00 |
+| A-890          | Central     |   340.00 |
+| A-903          | Rock Ridge  |   910.00 |
+| A-917          | Redwood     |  8200.00 |
+| A-931          | Downtown    |   200.00 |
+| A-959          | Mianus      | 74075.00 |
++----------------+-------------+----------+
+
+You can check that the expected 8 rows were updated
+with a join query, such as one that outputs the following
+updated balances for branches in Horseneck (the actual 
+query isn't given):
++-------------+----------------+----------+-------------+------------+
+| branch_name | account_number | balance  | branch_city | assets     |
++-------------+----------------+----------+-------------+------------+
+| Round Hill  | A-131          | 34075.00 | Horseneck   | 8000000.00 |
+| Perryridge  | A-185          | 82075.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-233          |   595.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-369          |  3875.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-375          |   945.00 | Horseneck   | 1700000.00 |
+| Mianus      | A-598          |   375.00 | Horseneck   |  400200.00 |
+| Mianus      | A-855          |   135.00 | Horseneck   |  400200.00 |
+| Mianus      | A-959          | 74075.00 | Horseneck   |  400200.00 |
++-------------+----------------+----------+-------------+------------+
+
+-- [Problem 2d]
+-- 2d's query is another UPDATE using the syntax described in the
+-- spec; after running 2d after 2c, you'd see the updates again:
++-------------+----------------+----------+-------------+------------+
+| branch_name | account_number | balance  | branch_city | assets     |
++-------------+----------------+----------+-------------+------------+
+| Round Hill  | A-131          | 34150.00 | Horseneck   | 8000000.00 |
+| Perryridge  | A-185          | 82150.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-233          |   670.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-369          |  3950.00 | Horseneck   | 1700000.00 |
+| Perryridge  | A-375          |  1020.00 | Horseneck   | 1700000.00 |
+| Mianus      | A-598          |   450.00 | Horseneck   |  400200.00 |
+| Mianus      | A-855          |   210.00 | Horseneck   |  400200.00 |
+| Mianus      | A-959          | 74150.00 | Horseneck   |  400200.00 |
++-------------+----------------+----------+-------------+------------+
+
+-- [Problem 2e]
++----------------+-------------+----------+
+| account_number | branch_name | balance  |
++----------------+-------------+----------+
+| A-131          | Round Hill  | 34150.00 |
+| A-151          | Greenfield  | 92000.00 |
+| A-181          | Belldale    | 67000.00 |
+| A-185          | Perryridge  | 82150.00 |
+| A-306          | Marks       | 69000.00 |
+| A-310          | Brighton    | 24000.00 |
+| A-485          | Central     |  2000.00 |
+| A-577          | Bretton     | 91000.00 |
+| A-587          | Stonewell   | 66000.00 |
+| A-730          | Pownal      | 91000.00 |
+| A-790          | North Town  | 37000.00 |
+| A-795          | Rock Ridge  | 50000.00 |
+| A-840          | Deer Park   | 19000.00 |
+| A-917          | Redwood     |  8200.00 |
+| A-931          | Downtown    |   200.00 |
+| A-959          | Mianus      | 74150.00 |
++----------------+-------------+----------+
+
+-- [Problem 2f]
+-- Expected results are same as 2e
+
+-- [Problem 3]
+-- Note: Remember that 1 is the highest rank, so descending goes
+-- from 1 to 17 in the provided dataset
++-------------+------------+------+
+| branch_name | assets     | rank |
++-------------+------------+------+
+| Round Hill  | 8000000.00 |    1 |
+| Brighton    | 7000000.00 |    2 |
+| Bretton     | 4550000.00 |    3 |
+| North Town  | 3700000.00 |    4 |
+| Redwood     | 2100000.00 |    5 |
+| Greenfield  | 2050000.00 |    6 |
+| Perryridge  | 1700000.00 |    7 |
+| Marks       | 1300000.00 |    8 |
+| Deer Park   | 1200000.00 |    9 |
+| Belldale    |  900000.00 |   10 |
+| Downtown    |  900000.00 |   10 |
+| Stonewell   |  775000.00 |   12 |
+| Rock Ridge  |  700000.00 |   13 |
+| Markham     |  625000.00 |   14 |
+| Central     |  400280.00 |   15 |
+| Mianus      |  400200.00 |   16 |
+| Pownal      |  400000.00 |   17 |
++-------------+------------+------+

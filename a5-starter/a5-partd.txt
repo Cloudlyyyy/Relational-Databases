@@ -1,0 +1,50 @@
+A5 Part D: Procedural SQL Applications in the Final Project
+Collaboration: Asmat Kaur Taunque: ataunque@caltech.edu, Cloudly Ceen cceen@caltech.edu
+Final Project Topic: NBA Hall of Fame
+
+Part D Answers:
+UDF(s): We could create a UDF to determine a secific player's career stats, 
+for example, average points in a game by:
+
+CREATE FUNCTION CalculateAveragePoints(player_id INT) RETURNS DECIMAL(5, 2)
+BEGIN
+    DECLARE avg_points DECIMAL(5, 2);
+
+    SELECT AVG(points) INTO avg_points
+    FROM game_statistics
+    WHERE player_id = player_id;
+
+    RETURN avg_points;
+END;
+
+Procedure(s): A procedure could be used to update a player's Hall of Fame 
+status based on certain criteria, like points scored and years played like: 
+
+CREATE PROCEDURE UpdateHallOfFameStatus()
+BEGIN
+    DECLARE player_cursor CURSOR FOR
+        SELECT player_id FROM players
+        WHERE career_points > 20000 AND years_played > 15;
+
+    OPEN player_cursor;
+    REPEAT
+        FETCH player_cursor INTO player_id;
+        UPDATE players SET hall_of_fame = TRUE WHERE player_id = player_id;
+    UNTIL done END REPEAT;
+    CLOSE player_cursor;
+END;
+
+
+* Trigger(s): We can use a trigger to update a player's achievements or records after
+each game like:
+
+CREATE TRIGGER RecordPlayerAchievements
+AFTER INSERT ON game_statistics
+FOR EACH ROW
+BEGIN
+    IF NEW.points > 50 THEN
+        INSERT INTO player_achievements (player_id, achievement)
+        VALUES (NEW.player_id, 'Scored over 50 points');
+    END IF;
+END;
+
